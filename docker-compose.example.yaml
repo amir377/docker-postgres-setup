@@ -1,0 +1,22 @@
+services:
+  postgres:
+    image: postgres:16
+    container_name: ${CONTAINER_NAME}
+    environment:
+      POSTGRES_DB: ${POSTGRES_DATABASE}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    ports:
+      - "${ALLOW_HOST}:${POSTGRES_PORT}:5432"
+    networks:
+      - ${NETWORK_NAME}
+
+volumes:
+  postgres-data:
+    driver: local
+
+networks:
+  ${NETWORK_NAME}:
+    external: true
